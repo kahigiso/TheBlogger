@@ -41,5 +41,10 @@ public class RoleDao implements IRoleDao{
 		
 		return sessionFactory.getCurrentSession().createCriteria(Role.class).list();
 	}
-	
+
+	@Override
+	public void deleteRole(Long id) {
+		sessionFactory.getCurrentSession().delete(id);
+		
+	}	
 }

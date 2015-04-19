@@ -43,5 +43,10 @@ public class UserDao implements IUserDao{
     public List<User> getUsers(Long userId) {
         return sessionFactory.getCurrentSession().createCriteria(User.class).list();
     }
+
+	@Override
+	public void deleteUser(Long id) {
+		sessionFactory.getCurrentSession().delete(id);
+	}
     
 }
