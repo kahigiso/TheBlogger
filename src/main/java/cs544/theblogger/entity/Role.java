@@ -6,7 +6,9 @@
 package cs544.theblogger.entity;
 
 import java.util.Date;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -29,17 +31,15 @@ public class Role {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @NotNull
-    @Column(nullable = false, unique = true)
+    @Column(unique = true)
     private String name;
     @ManyToMany(mappedBy = "roles")
-    private List<User> users;
-    @NotNull
+    private Set<User> users = new HashSet<User>();
+    @Column(nullable=false)
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(nullable = false)
     private Date createdDate;
-    @NotNull
+    @Column(nullable=false)
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(nullable = false)
     private Date updatedDate;
     
     public Role(){}
@@ -60,7 +60,7 @@ public class Role {
         this.name = name;
     }
 
-    public List<User> getUsers() {
+    public Set<User> getUsers() {
         return users;
     }
     
@@ -90,8 +90,7 @@ public class Role {
     
     @PreUpdate
     public void preUpdate(){
-        Date now  = new Date();
-        this.setUpdatedDate(now); 
+        this.setUpdatedDate(new Date()); 
     }
 
     @Override

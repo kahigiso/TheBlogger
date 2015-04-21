@@ -5,8 +5,14 @@
  */
 package cs544.theblogger;
 
+
+import cs544.theblogger.dao.ArticleDao;
+import cs544.theblogger.dao.CategoryDao;
+import cs544.theblogger.dao.CommentDao;
+import cs544.theblogger.dao.PictureDao;
 import cs544.theblogger.dao.RoleDao;
 import cs544.theblogger.dao.UserDao;
+import cs544.theblogger.dao.VideoDao;
 import cs544.theblogger.entity.Article;
 import cs544.theblogger.entity.Category;
 import cs544.theblogger.entity.Comment;
@@ -19,30 +25,40 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
-import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
  * @author jeankahigiso
  */
 @Transactional
-@Service
+@Component
 public class Initializer {
 	
 	@Autowired
-	RoleDao roleDao;
+	private RoleDao roleDao;
 	@Autowired
-	UserDao  userDao;
-    
+	private UserDao  userDao;
+	@Autowired
+	private CategoryDao categoryDao;
+	@Autowired
+	private ArticleDao articleDao;
+	@Autowired
+	private CommentDao commentDao;
+	@Autowired
+	private PictureDao pictureDao;
+	@Autowired
+	private VideoDao videoDao;
+ 
     @PostConstruct
     public void init(){
         System.out.println("Got here!");
         Map<String,Role> roles =  createRole();
         Map<String,User> users = createUser(roles);
-        System.out.println("End here!");
+        System.out.println("End here! number of user"+users.size());
     }
 
     private Map<String,User> createUser(Map<String,Role> roles){
@@ -66,7 +82,7 @@ public class Initializer {
         comment.setName(name);
         comment.setMessage(message);
         if(parent!=null) parent.addChildren(comment);
-        return comment;
+        return commentDao.create(comment);
     }
     
     public Article newArticle(Category category, String title, String content){
@@ -74,13 +90,13 @@ public class Initializer {
        article.setCategory(category);
        article.setTitle(title);
        article.setContent(content);
-       return article;
+       return articleDao.create(article);
     }
     
     public Category newCategory(String name){
         Category category = new Category();
         category.setName(name);
-        return category;
+        return categoryDao.create(category);
     }
     
     private User newUser(String usrn, String psswrd, String email, Date dob, Role role){
@@ -91,13 +107,13 @@ public class Initializer {
         user.setDob(dob);
         user.setActived(true);
         user.addRoles(role);
-        return userDao.createUser(user);
+        return userDao.create(user);
     }
     
     private Role newRole(String name){
        Role role = new Role();
        role.setName(name);
-       return roleDao.createRole(role); 
+       return roleDao.create(role); 
     }
     private Date createDate(int day, int month, int year){
     	Calendar cal = Calendar.getInstance();

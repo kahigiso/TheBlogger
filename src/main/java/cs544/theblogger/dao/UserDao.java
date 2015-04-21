@@ -11,6 +11,8 @@ import cs544.theblogger.idao.IUserDao;
 import java.util.List;
 
 import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,34 +20,36 @@ import org.springframework.transaction.annotation.Transactional;
  *
  * @author jeankahigiso
  */
-@Transactional(propagation = Propagation.MANDATORY)
+@Transactional(propagation = Propagation.REQUIRED)
+@Service
 public class UserDao implements IUserDao{
     
+	@Autowired
     SessionFactory sessionFactory;
 
     @Override
-    public User createUser(User user) {
+    public User create(User user) {
        return (User) sessionFactory.getCurrentSession().merge(user);
     }
 
     @Override
-    public void updateUser(User user) {
+    public void update(User user) {
        sessionFactory.getCurrentSession().update(user);
     }
 
     @Override
-    public User loadUser(Long userId) {
+    public User get(Long userId) {
        return (User) sessionFactory.getCurrentSession().get(User.class, userId);
     }
 
-    @SuppressWarnings("unchecked")
 	@Override
-    public List<User> getUsers(Long userId) {
+	@SuppressWarnings("unchecked")
+    public List<User> getAll() {
         return sessionFactory.getCurrentSession().createCriteria(User.class).list();
     }
 
 	@Override
-	public void deleteUser(Long id) {
+	public void delete(Long id) {
 		sessionFactory.getCurrentSession().delete(id);
 	}
     

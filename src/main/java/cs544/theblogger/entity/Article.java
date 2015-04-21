@@ -22,7 +22,6 @@ import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotBlank;
 
 /**
@@ -47,14 +46,11 @@ public class Article {
     private String content; 
     @OneToMany(mappedBy = "article", cascade = CascadeType.ALL)
     private List<Comment> comments = new ArrayList<Comment>();
-    
-    @NotNull
+    @Column(nullable=false)
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(nullable = false)
     private Date createdDate;
-    @NotNull
+    @Column(nullable=false)
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(nullable = false)
     private Date updatedDate;
 
     public Long getId() {

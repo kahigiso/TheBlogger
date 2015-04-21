@@ -5,21 +5,19 @@
  */
 package cs544.theblogger.idao;
 
-import cs544.theblogger.entity.User;
-
 import java.util.List;
 
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-/**
- *
- * @author jeankahigiso
- */
+import cs544.theblogger.entity.User;
+
+
+@Transactional(propagation=Propagation.MANDATORY)
 public interface IUserDao {
-    public abstract User createUser(User user);
-    public abstract void updateUser(User user);
-    public abstract User loadUser(Long userId);
-    public abstract List<User> getUsers(Long userId);
-    public abstract void deleteUser(Long id);
+    public  User create(User user);
+    public  void update(User user);
+    public  User get(Long id);
+    public  List<User> getAll();
+    public  void delete(Long id);
 }

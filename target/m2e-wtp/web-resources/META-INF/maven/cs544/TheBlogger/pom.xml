@@ -17,13 +17,36 @@
     </properties>
     
     <dependencies>
-        <!--For hibernate-->
+    	<!-- AOP dependency -->
+    	<dependency>
+    		<groupId>org.aspectj</groupId>
+    		<artifactId>aspectjrt</artifactId>
+    		<version>1.8.5</version>
+    	</dependency>
+    	<dependency>
+    		<groupId>org.aspectj</groupId>
+    		<artifactId>aspectjweaver</artifactId>
+    		<version>1.8.5</version>
+    	</dependency>
+    	<dependency>
+    		<groupId>cglib</groupId>
+    		<artifactId>cglib</artifactId>
+    		<version>3.1</version>
+    		<scope>runtime</scope>
+    	</dependency>
+
+    	<!--For hibernate-->
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
             <version>4.3.8.Final</version>
         </dependency>
-         <!--For hibernate spring mvc validatin  this <mvc:annotation-driven /> has to be added into -->
+        <dependency>
+        	<groupId>org.hibernate</groupId>
+        	<artifactId>hibernate-entitymanager</artifactId>
+        	<version>4.3.8.Final</version>
+        </dependency>
+        <!--For hibernate spring mvc validatin  this <mvc:annotation-driven /> has to be added into -->
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
@@ -34,14 +57,19 @@
             <artifactId>validation-api</artifactId>
             <version>1.1.0.Final</version>
         </dependency>
-        <!--For the in memory db during development-->
+        <!--JDBC Drive For the in memory db during development-->
         <dependency>
-	  	<groupId>org.hsqldb</groupId>
-	  	<artifactId>hsqldb</artifactId>
-	  	<version>2.3.2</version>
+		  	<groupId>org.hsqldb</groupId>
+		  	<artifactId>hsqldb</artifactId>
+		  	<version>2.3.2</version>
         </dependency>
         <!--For the in deployment db in production-->
-        <dependency>
+       	<dependency>
+		  <groupId>org.springframework</groupId>
+		  <artifactId>spring-jdbc</artifactId>
+		  <version>${org.springframework.version}</version>
+		</dependency>
+       	<dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>5.1.29</version>
@@ -53,7 +81,6 @@
             <version>3.8.1</version>
             <scope>test</scope>
         </dependency>
-        
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-web-api</artifactId>
@@ -67,6 +94,11 @@
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+            <version>${org.springframework.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
             <version>${org.springframework.version}</version>
         </dependency>
@@ -76,10 +108,15 @@
         	<version>${org.springframework.version}</version>
         </dependency>
         <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>jstl</artifactId>
-            <version>1.2</version>
+        	<groupId>org.springframework</groupId>
+        	<artifactId>spring-orm</artifactId>
+        	<version>${org.springframework.version}</version>
         </dependency>
+        <dependency>
+       		<groupId>jstl</groupId>
+       		<artifactId>jstl</artifactId>
+       		<version>1.2</version>
+       	</dependency>
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>

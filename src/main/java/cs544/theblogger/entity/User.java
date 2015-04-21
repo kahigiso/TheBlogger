@@ -8,6 +8,7 @@ package cs544.theblogger.entity;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -21,11 +22,11 @@ import javax.persistence.PreUpdate;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
+
 import org.hibernate.validator.constraints.Email;
-import org.springframework.format.annotation.DateTimeFormat;
+import org.hibernate.validator.constraints.NotBlank;
 
 /**
  *
@@ -38,26 +39,25 @@ public class User {
     private Long id;
     private String firstName;
     private String lastName;
-    @Column(nullable = false, unique = true)
+    @Column(unique = true)
+    @NotBlank
     @Size(min = 3, max = 12)
     private String username;
-    @Column(nullable = false)
     @Size(min = 5)
+    @NotBlank
     private String password;
     @Email
-    @Column(nullable = false, unique = true)
+    @NotBlank
+    @Column(unique = true)
     private String email;
     @Past
-    @DateTimeFormat(pattern = "MM/dd/yyyy")
     @Temporal(TemporalType.DATE)
     private Date dob;
-    @NotNull
+    @Column(nullable=false)
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(nullable = false)
     private Date createdDate;
-    @NotNull
+    @Column(nullable=false)
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(nullable = false)
     private Date updatedDate;
     private Boolean actived = false;
     @ManyToMany
@@ -66,7 +66,8 @@ public class User {
         inverseJoinColumns = {@JoinColumn(name = "role_id")}
     )
     private Set<Role> roles = new HashSet<Role>();
-
+    
+    public User(){}
     
     public Long getId() {
         return id;
@@ -161,8 +162,7 @@ public class User {
     
     @PreUpdate
     public void preUpdate(){
-        Date now  = new Date();
-        this.setUpdatedDate(now); 
+        this.setUpdatedDate(new Date()); 
     }
     
     @Transient

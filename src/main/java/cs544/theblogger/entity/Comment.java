@@ -43,19 +43,16 @@ public class Comment {
     @Size(min = 10)
     @Column(nullable = false)
     private String message;
-    @Column(nullable = true)
     @ManyToOne
     @JoinColumn(nullable = true)
     private Comment parent;
     @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL)
     private List<Comment> children = new ArrayList<Comment>();
-    @NotNull
+    @Column(nullable=false)
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(nullable = false)
     private Date createdDate;
-    @NotNull
+    @Column(nullable=false)
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(nullable = false)
     private Date updatedDate;
 
     public Long getId() {
