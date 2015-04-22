@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+  
+  <definition name="common" template="/WEB-INF/layouts/classic.jsp">
+    <put-attribute name="footer" value="/WEB-INF/layouts/footer.jsp" />
+  </definition>
+  
+  <definition name="index" extends="common" >
+    <put-attribute name="title" value="Welcome to The Blogger" />
+    <put-attribute name="body" value="/WEB-INF/views/index.jsp" />
+    <put-attribute name="current" value="index" />
+  </definition>
+  
+   <definition name="users" extends="common" >
+    <put-attribute name="title" value="Admin - Users" />
+    <put-attribute name="body" value="/WEB-INF/views/users.jsp" />
+    <put-attribute name="current" value="users" />
+   </definition>
+   
+   <definition name="user-details" extends="common" >
+    <put-attribute name="title" value="User Details" />
+    <put-attribute name="body" value="/WEB-INF/views/user-details.jsp" />
+    <put-attribute name="current" value="user-details" />
+   </definition>
+   
+    <definition name="register" extends="common" >
+    <put-attribute name="title" value="User Registrer" />
+    <put-attribute name="body" value="/WEB-INF/views/register.jsp" />
+    <put-attribute name="current" value="register" />
+   </definition>
+   
+    <definition name="roles" extends="common" >
+    <put-attribute name="title" value="Roles" />
+    <put-attribute name="body" value="/WEB-INF/views/roles.jsp" />
+    <put-attribute name="current" value="roles" />
+   </definition>
+   
+    <definition name="login" extends="common" >
+    <put-attribute name="title" value="Login" />
+    <put-attribute name="body" value="/WEB-INF/views/login.jsp" />
+    <put-attribute name="current" value="login" />
+   </definition>
+  
+</tiles-definitions>

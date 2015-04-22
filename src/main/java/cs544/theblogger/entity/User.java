@@ -41,7 +41,7 @@ public class User {
     private String lastName;
     @Column(unique = true)
     @NotBlank
-    @Size(min = 3, max = 12)
+    @Size(min = 3, max = 20)
     private String username;
     @Size(min = 5)
     @NotBlank

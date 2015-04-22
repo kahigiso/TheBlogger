@@ -8,6 +8,7 @@ package cs544.theblogger.entity;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -22,6 +23,8 @@ import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.NotBlank;
 
 /**
@@ -40,7 +43,9 @@ public class Article {
     @NotBlank
     @Column(nullable = false)
     private String title;
+    private Boolean daft = true;
     @Lob
+    @Type(type="text")
     @NotBlank
     @Column(nullable = false)
     private String content; 
@@ -66,6 +71,13 @@ public class Article {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+    
+    public Boolean getDraft(){
+    	return daft;
+    }
+    public void setDraft(Boolean bool){
+    	this.daft= bool;
     }
     
     public String getTitle() {
