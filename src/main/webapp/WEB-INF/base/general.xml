@@ -29,15 +29,56 @@
     <put-attribute name="body" value="/WEB-INF/views/register.jsp" />
     <put-attribute name="current" value="register" />
    </definition>
+   <definition name="addUser" extends="common" >
+    <put-attribute name="title" value="Admin - User" />
+    <put-attribute name="body" value="/WEB-INF/views/addUser.jsp" />
+    <put-attribute name="current" value="users" />
+   </definition>
    
     <definition name="roles" extends="common" >
-    <put-attribute name="title" value="Roles" />
+    <put-attribute name="title" value="Admin - Roles" />
     <put-attribute name="body" value="/WEB-INF/views/roles.jsp" />
     <put-attribute name="current" value="roles" />
    </definition>
+      
+   <definition name="articles" extends="common" >
+    <put-attribute name="title" value="Admin - Articles" />
+    <put-attribute name="body" value="/WEB-INF/views/articles.jsp" />
+    <put-attribute name="current" value="articles" />
+   </definition>
+   
+   <definition name="addArticle" extends="common" >
+    <put-attribute name="title" value="Admin - Articles" />
+    <put-attribute name="body" value="/WEB-INF/views/addArticle.jsp" />
+    <put-attribute name="current" value="articles" />
+   </definition>
+   
+   <definition name="categories" extends="common" >
+    <put-attribute name="title" value="Admin - Categories" />
+    <put-attribute name="body" value="/WEB-INF/views/categories.jsp" />
+    <put-attribute name="current" value="categories" />
+   </definition>
+   
+    <definition name="addCategory" extends="common" >
+    <put-attribute name="title" value="Admin - Category" />
+    <put-attribute name="body" value="/WEB-INF/views/addCategory.jsp" />
+    <put-attribute name="current" value="categories" />
+   </definition>
+   
+   <definition name="comments" extends="common" >
+    <put-attribute name="title" value="Admin - Comments" />
+    <put-attribute name="body" value="/WEB-INF/views/comments.jsp" />
+    <put-attribute name="current" value="comments" />
+   </definition>
+   
+   <definition name="addComment" extends="common" >
+    <put-attribute name="title" value="Admin - Comments" />
+    <put-attribute name="body" value="/WEB-INF/views/addComment.jsp" />
+    <put-attribute name="current" value="comments" />
+   </definition>
    
     <definition name="login" extends="common" >
-    <put-attribute name="title" value="Login" />
+    <put-attribute name="title" value="Admin - Login" />
     <put-attribute name="body" value="/WEB-INF/views/login.jsp" />
     <put-attribute name="current" value="login" />
    </definition>

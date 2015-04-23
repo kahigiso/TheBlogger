@@ -20,8 +20,8 @@ import cs544.theblogger.repository.UserRepository;
  *
  * @author jeankahigiso
  */
-@Transactional(propagation = Propagation.REQUIRED)
 @Service
+@Transactional(propagation = Propagation.REQUIRED)
 public class UserService{
     
 	@Autowired

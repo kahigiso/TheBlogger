@@ -6,9 +6,12 @@
 package cs544.theblogger.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
 import cs544.theblogger.entity.User;
 
-
+@Transactional(propagation=Propagation.MANDATORY)
 public interface UserRepository extends JpaRepository<User, Long>{
 
 }

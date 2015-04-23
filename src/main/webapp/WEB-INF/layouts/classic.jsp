@@ -4,6 +4,7 @@
 <html>
 <head>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security"%>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"/>
@@ -11,9 +12,15 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<style>
+ .mytable {
+ 	font-size: 13px;
+ }
+</style>
 <title><tiles:getAsString name="title"/></title>
 </head>
-<body>
+ 
+<body class="mytable"> 
 <%@ taglib uri="http://tiles.apache.org/tags-tiles-extras" prefix="tilesx" %>
 <tilesx:useAttribute name="current"/>
 <div class="container">
@@ -33,40 +40,41 @@
 	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 	      <ul class="nav navbar-nav navbar-right">
 	        <li class="${current=='index' ? 'active':''}"><a href='<spring:url value="/"/>'>Home</a></li>
-	        <li><form class="form-inline" role="form" action="<spring:url value='/j_spring_security_check' />" method="POST">
-				    <div class="form-group">
-					        <label class="sr-only" for="email">Username</label>
-					        <input type="text" class="form-control" name="j_username"  placeholder="Email" required autofocus>
-					    </div>
-					    <div class="form-group">
-					        <label class="sr-only" for="password">Password</label>
-					        <input type="password" class="form-control" name="j_password" placeholder="Password">
-					    </div>
-    				<button type="submit" class="btn btn-primary">Sign in</button>
-				</form>		
-			</li>
-	        <li class="dropdown">
-	          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Manage<span class="caret"></span></a>
-	          <ul class="dropdown-menu" role="menu">
-	            <li class="${current=='articles' ? 'active':''}"><a href='<spring:url value="/articles.html"/>'>Articles</a></li>
-	            <li class="${current=='categories' ? 'active':''}"><a href='<spring:url value="/categories.html"/>'>Categories</a></li>
-	            <li class="${current=='comments' ? 'active':''}"><a href='<spring:url value="/comments.html"/>'>Comments</a></li>
-	            <li class="divider"></li>
-	            <li class="${current=='users' ? 'active':''}"><a href='<spring:url value="/users/.html"/>'>Users</a></li>
-	            <li class="${current=='roles' ? 'active':''}"><a href='<spring:url value="/roles.html"/>'>Roles</a></li>
-	          </ul>
-        	</li>
-        	<li class="${current=='login' ? 'active':''}"><a href='<spring:url value="/login.html"/>'>Login</a></li>
-        	 <li class="${current=='register' ? 'active':''}"><a href='<spring:url value="/login/register.html"/>'>Register</a></li>
-        	<li class="${current=='login' ? 'active':''}"><a href='<spring:url value="/logout.html"/>'>Logout</a></li>
+	       <%-- <security:authorize access="isAuthenticated()"> --%>
+		        <li class="dropdown">
+		          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Manage<span class="caret"></span></a>
+		          <ul class="dropdown-menu" role="menu">
+		            <li class="${current=='articles' ? 'active':''}"><a href='<spring:url value="/manage/articles.html?p=1"/>'>Articles</a></li>
+		            <li class="${current=='categories' ? 'active':''}"><a href='<spring:url value="/manage/categories.html"/>'>Categories</a></li>
+		            <li class="${current=='comments' ? 'active':''}"><a href='<spring:url value="/manage/comments.html?p=1"/>'>Comments</a></li>
+		          <%-- <security:authorize access="hasRole('ROLE_ADMIN')">  --%>
+			            <li class="divider"></li>
+			            <li class="${current=='users' ? 'active':''}"><a href='<spring:url value="/administrate/users.html"/>'>Users</a></li>
+			            <li class="${current=='roles' ? 'active':''}"><a href='<spring:url value="/administrate/roles.html"/>'>Roles</a></li>
+		          <%--  </security:authorize> --%>
+		          </ul>
+	        	</li>
+        	<%-- </security:authorize> --%>
+        	<security:authorize access="!isAuthenticated()">
+	        	<li class="${current=='login' ? 'active':''}"><a href='<spring:url value="/login.html"/>'>Login</a></li>
+	        	<li class="${current=='register' ? 'active':''}"><a href='<spring:url value="/register/register.html"/>'>Register</a></li>
+        	</security:authorize>     	
+        	<security:authorize access="isAuthenticated()">
+        		<li><a href="<spring:url value='/logout'/>">Logout</a></li>
+        	</security:authorize>
 	      </ul>
 	    </div><!-- /.navbar-collapse -->
 
 	  </div><!-- /.container-fluid -->
 	</nav>
-	<tiles:insertAttribute name="body"/>
-	<br/><br/>
-	<tiles:insertAttribute name="footer"/>
+	<div class="col-lg-12 row row-centered">
+		<div class="col-xs-12 col-centered">
+			<tiles:insertAttribute name="body"/>
+		</div>
+		<div class="col-xs-12 col-centered">
+			<tiles:insertAttribute name="footer"/>
+		</div>
+	</div>
 </div>
 </body>
 </html>

@@ -9,8 +9,10 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -40,17 +42,16 @@ public class User {
     private String firstName;
     private String lastName;
     @Column(unique = true)
-    @NotBlank
-    @Size(min = 3, max = 20)
+    @NotBlank (message="Username cannot be blank")
+    @Size(min = 3,message="Username has to be at least 2 character long")
     private String username;
-    @Size(min = 5)
-    @NotBlank
+    @Size(min = 5, message="Password has to be at least 5 character long")
+    @NotBlank (message="Password cannot be blank")
     private String password;
-    @Email
-    @NotBlank
-    @Column(unique = true)
+    @Email(message="Is not a valid email!")
+    @Column(unique = true, nullable= false)
     private String email;
-    @Past
+    @Past(message="Data has to be in the past")
     @Temporal(TemporalType.DATE)
     private Date dob;
     @Column(nullable=false)
@@ -60,7 +61,7 @@ public class User {
     @Temporal(TemporalType.TIMESTAMP)
     private Date updatedDate;
     private Boolean actived = false;
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.DETACH, fetch=FetchType.EAGER)
     @JoinTable(name = "user_roles",
         joinColumns = {@JoinColumn(name = "user_id")},
         inverseJoinColumns = {@JoinColumn(name = "role_id")}
@@ -167,7 +168,8 @@ public class User {
     
     @Transient
     public void addRoles(Role role) {
-        roles.add(role);
+    	roles.add(role);
+    	role.getUsers().add(this); 
     }
     
     @Transient

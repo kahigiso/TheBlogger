@@ -28,8 +28,8 @@ public class CategoryService {
 		return  categoryRepository.findAll();
 	}
 	
-	public void delete(Category category) {
-		categoryRepository.delete(category);
+	public void delete(long id) {
+		categoryRepository.delete(id);
 	}
 	
 	public void getCategory(Category category) {

@@ -43,7 +43,7 @@ public class Article {
     @NotBlank
     @Column(nullable = false)
     private String title;
-    private Boolean daft = true;
+    private Boolean draft = true;
     @Lob
     @Type(type="text")
     @NotBlank
@@ -74,10 +74,10 @@ public class Article {
     }
     
     public Boolean getDraft(){
-    	return daft;
+    	return draft;
     }
     public void setDraft(Boolean bool){
-    	this.daft= bool;
+    	this.draft= bool;
     }
     
     public String getTitle() {

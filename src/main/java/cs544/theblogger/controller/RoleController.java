@@ -25,24 +25,24 @@ public class RoleController {
 		return new Role();
 	}
 	
-	@RequestMapping(value="/roles", method=RequestMethod.GET)
+	@RequestMapping(value="/administrate/roles", method=RequestMethod.GET)
 	public String listAll(Model model){
 		model.addAttribute("roles", roleService.findAll());
 		return "roles";
 	}
 	
-	@RequestMapping(value="/roles/add")
+	@RequestMapping(value="/administrate/roles/add")
 	public String showAdd(){
 		return "addRole";
 	}
 	
-	@RequestMapping(value="/roles/add/{id}", method=RequestMethod.GET)
+	@RequestMapping(value="/administrate/roles/add/{id}", method=RequestMethod.GET)
 	public String edit(@PathVariable long id, Model model){
 		model.addAttribute("role", roleService.find(id));
 		return "addRole";
 	}
 		
-	@RequestMapping(value="/addRole", method=RequestMethod.POST)
+	@RequestMapping(value="/administrate/roles/add/", method=RequestMethod.POST)
 	public String add(@Valid Role role, BindingResult result, Model model){
 		String view ="redirect:roles";
 		if(!result.hasErrors()){

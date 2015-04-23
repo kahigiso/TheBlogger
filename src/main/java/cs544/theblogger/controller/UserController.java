@@ -17,7 +17,6 @@ import cs544.theblogger.service.UserService;
 
 
 @Controller
-@RequestMapping(value="/users")
 public class UserController {
 	
 	@Autowired
@@ -30,35 +29,36 @@ public class UserController {
 		return new User();
 	}
 	
-	@RequestMapping(value="/users", method=RequestMethod.GET)
+	@RequestMapping(value="/administrate/users")
 	public String listAll(Model model){
 		model.addAttribute("users", userService.getAll());
 		return "users";
 	}
 	
-	@RequestMapping(value="/users/details/{id}", method=RequestMethod.GET)
+	@RequestMapping(value="/administrate/users/details/{id}", method=RequestMethod.GET)
 	public String details(@PathVariable long id, Model model){
 		model.addAttribute("user", userService.find(id));
 		return "user-details";
 	}
 	
-	@RequestMapping(value="/users/add")
+	@RequestMapping(value="/administrate/users/add", method=RequestMethod.GET)
 	public String showAdd(){
 		return "addUser";
 	}
 	
-	@RequestMapping(value="/users/edit/{id}", method=RequestMethod.GET)
+	@RequestMapping(value="/administrate/users/edit/{id}", method=RequestMethod.GET)
 	public String edit(@PathVariable long id, Model model){
 		model.addAttribute("user", userService.find(id));
+		model.addAttribute("roles", roleService.findAll());
 		return "addUser";
 	}
 	
-	@RequestMapping(value="/users/add", method=RequestMethod.POST)
-	public String add(@Valid User user,BindingResult result, Model model){
-		String view = "redirect:/users";
+	@RequestMapping(value="/administrate/users/add", method=RequestMethod.POST)
+	public String doAdd(@Valid User user,BindingResult result, Model model){
+		String view = "redirect:/administrate/users";
 		if(!result.hasErrors()){
 			userService.create(user);
-			//TODO add success message
+			model.addAttribute("SUCCESS_MESSAGE", "User create successfully !");
 		}else view ="addUser";
 		return view;
 	}	

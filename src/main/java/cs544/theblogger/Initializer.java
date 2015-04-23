@@ -27,6 +27,7 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -60,10 +61,17 @@ public class Initializer {
         Map<String,User> users = createUser(roles);
         Map<String, Category> cMap = createCategiry(users.get("ADMIN"));
         Map<String, Article> aMap = createArticle(cMap);
+        createComment(aMap);
         System.out.println("End here! number of user"+users.size());
     }
     
     
+    private void createComment(Map<String, Article> aMap){
+    	for(String str: aMap.keySet()){
+    		Article art = aMap.get(str);
+    		newComment(art,"email"+str+"@gmail.com","Jean"+""+str,CONTENT,null);
+    	}
+    }
     
     private Map<String, Article> createArticle(Map<String,Category> catMap){
     	Map<String, Article> aMap = new HashMap<String, Article>();
@@ -105,7 +113,6 @@ public class Initializer {
     
     private Map<String,Category> createCategiry(User admin){
     	Map<String,Category> catMap = new HashMap<String, Category>();
-    	catMap.put("Lastest", newCategory("Lastest"));
     	catMap.put("Java", newCategory("Java"));
     	catMap.put("C#", newCategory("C#"));
     	catMap.put("PHP", newCategory("PHP"));
@@ -118,15 +125,16 @@ public class Initializer {
 
     private Map<String,User> createUser(Map<String,Role> roles){
          Map<String,User> users = new HashMap<String,User>();
-         users.put("admin", newUser("admin", "admin", "admin@mail.com", createDate(3, 2, 1980), roles.get("ADMIN")));
+         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+         users.put("admin", newUser("admin", encoder.encode("admin"), "admin@mail.com", createDate(3, 2, 1980), roles.get("ADMIN")));
          users.put("contributer", newUser("contributer", "contributer", "contributer@mail.com", createDate(12,8,1990), roles.get("CONTRIBUTOR")));
          return users;
     }
 
     private Map<String,Role> createRole(){
         Map<String,Role> roles = new HashMap<String,Role>();
-        roles.put("ADMIN", newRole("ADMIN"));
-        roles.put("CONTRIBUTOR", newRole("CONTRIBUTOR"));
+        roles.put("ADMIN", newRole("ROLE_ADMIN"));
+        roles.put("CONTRIBUTOR", newRole("ROLE_USER"));
         return roles;
     }
 		 
@@ -145,7 +153,7 @@ public class Initializer {
        article.setCategory(category);
        article.setTitle(title);
        article.setContent(content);
-       article.setDraft(true);
+       article.setDraft(false);
        return articleService.create(article);
     }
     

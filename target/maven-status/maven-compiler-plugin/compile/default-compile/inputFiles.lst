@@ -1,6 +1,8 @@
+/Users/jeankahigiso/Documents/springProjects/TheBlogger/src/main/java/cs544/theblogger/controller/ArticleController.java
 /Users/jeankahigiso/Documents/springProjects/TheBlogger/src/main/java/cs544/theblogger/service/RoleService.java
 /Users/jeankahigiso/Documents/springProjects/TheBlogger/src/main/java/cs544/theblogger/entity/Picture.java
 /Users/jeankahigiso/Documents/springProjects/TheBlogger/src/main/java/cs544/theblogger/controller/IndexController.java
+/Users/jeankahigiso/Documents/springProjects/TheBlogger/src/main/java/cs544/theblogger/controller/CategoryController.java
 /Users/jeankahigiso/Documents/springProjects/TheBlogger/src/main/java/cs544/theblogger/repository/CategoryRepository.java
 /Users/jeankahigiso/Documents/springProjects/TheBlogger/src/main/java/cs544/theblogger/service/CommentService.java
 /Users/jeankahigiso/Documents/springProjects/TheBlogger/src/main/java/cs544/theblogger/repository/VideoRepository.java
@@ -22,6 +24,8 @@
 /Users/jeankahigiso/Documents/springProjects/TheBlogger/src/main/java/cs544/theblogger/entity/Role.java
 /Users/jeankahigiso/Documents/springProjects/TheBlogger/src/main/java/cs544/theblogger/service/UserService.java
 /Users/jeankahigiso/Documents/springProjects/TheBlogger/src/main/java/cs544/theblogger/entity/Comment.java
+/Users/jeankahigiso/Documents/springProjects/TheBlogger/src/main/java/cs544/theblogger/controller/CommentController.java
 /Users/jeankahigiso/Documents/springProjects/TheBlogger/src/main/java/cs544/theblogger/entity/Media.java
 /Users/jeankahigiso/Documents/springProjects/TheBlogger/src/main/java/cs544/theblogger/entity/User.java
 /Users/jeankahigiso/Documents/springProjects/TheBlogger/src/main/java/cs544/theblogger/entity/Video.java
+/Users/jeankahigiso/Documents/springProjects/TheBlogger/src/main/java/cs544/theblogger/service/NoSuchResourceException.java

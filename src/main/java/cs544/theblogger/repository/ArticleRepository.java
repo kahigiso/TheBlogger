@@ -1,6 +1,5 @@
 package cs544.theblogger.repository;
 
-import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -13,4 +12,5 @@ public interface ArticleRepository extends JpaRepository<Article, Long>{
 	
 	Page<Article> findByCategoryAndDraftFalse(Category category, Pageable pageable);
 	Page<Article> findByDraftFalse(Pageable pageRequest);
+	Page<Article> findAll(Pageable pageRequest);
 }

@@ -37,16 +37,19 @@
 }
 </style>  
 <%@ include file="../layouts/taglib.jsp" %>
-
-<form class="form-signin" role="form" action="<spring:url value='/j_spring_security_check' />" method="POST">
-	<h2 class="form-signin-heading">Please sign in</h2>
+<form class="form-signin" role="form" action='<spring:url value="/j_spring_security_check"/>' method="POST">
+	<h2 class="form-signin-heading">Login</h2>
+	<c:if test="${error eq true}">
+		<p>${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message}</p>
+	</c:if>
     <div class="form-group">
-        <label for="email">Username</label>
-        <input type="text" class="form-control" name="j_username"  placeholder="Email" required autofocus>
+        <label for="username">Username</label>
+        <input type="text" class="form-control" name="username"  placeholder="Username" value="<c:if test="${not empty param.loing_error}">${SPRING_SECURITY_LAST_USERNAME}</c:if>" required autofocus />
     </div>
     <div class="form-group">
         <label for="password">Password</label>
-        <input type="password" class="form-control" name="j_password" placeholder="Password">
+        <input type="password" class="form-control" name="password" placeholder="Password">
     </div>
+    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
     <button type="submit" class="btn btn-lg btn-primary btn-block">Sign in</button>
 </form>
